@@ -8,8 +8,45 @@
   </head>
   <body class="mixpanel-platform-body">
     <h1>Hello, World!</h1>
+    <script id="jql">
+      function main() {
+        return Events({
+          from_date: '2016-09-22',
+          to_date:   '2016-09-22'
+        })
+        .groupByUser(function(state, events){
+          state = state || {
+            initiated : false,
+            complete : false
+          };
+          _.each(events, function(event){
+            if(event.name == "Script Initiated"){
+              state.initiated = true;
+            }
+            if(event.name == "Script Complete"){
+              state.complete = true;
+            }
+          });
+          return state;
+        })
+        .filter(function(element){
+          return !element.value.complete;
+        })
+        .map(function(element){
+          return element.key[0];
+        });
+      }
+    </script>
+    
     <script>
-      // Run queries and display results here
+      var script = $('#jql').html();
+      script = $.trim(script);
+      console.log(script);
+      var params = {};
+      MP.api.jql(script,params).done(function(results) {
+        console.log(results);
+        
+      });
     </script>
   </body>
 </html>

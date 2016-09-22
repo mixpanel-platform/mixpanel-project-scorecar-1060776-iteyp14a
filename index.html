@@ -47,7 +47,7 @@
         var base_url = "https://mixpanel.com/report/";
         _.each(results, function(result){
           var temp_url = base_url+result;
-          document.getElementById('content').innerHTML = "<a href='"+temp_url+"' target='_blank'>"+temp_url+"</a><br />";
+          document.getElementById('content').innerHTML += "<a href='"+temp_url+"' target='_blank'>"+temp_url+"</a><br />";
         });
         console.log(results);
         

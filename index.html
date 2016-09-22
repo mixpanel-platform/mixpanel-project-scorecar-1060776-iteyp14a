@@ -7,7 +7,7 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <h1>Hello, World!</h1>
+    <div id="content"></div>
     <script id="jql">
       function main() {
         return Events({
@@ -44,6 +44,11 @@
       console.log(script);
       var params = {};
       MP.api.jql(script,params).done(function(results) {
+        var base_url = "https://mixpanel.com/report/";
+        _.each(results, function(result){
+          var temp_url = base_url+result;
+          document.getElementById('content').innerHTML = "<a href='"+temp_url+"' target='_blank'>"+temp_url+"</a><br />";
+        });
         console.log(results);
         
       });
